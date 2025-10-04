@@ -59,14 +59,14 @@ pub trait RawLevelAccessor {
     /// Iterate through this project's [root levels](RawLevelAccessor#root-vs-world-levels).
     ///
     /// Note: all levels are considered [raw](crate::assets::LdtkProject#raw-vs-loaded-levels).
-    fn iter_root_levels(&self) -> IterRootLevels {
+    fn iter_root_levels(&self) -> IterRootLevels<'_> {
         self.root_levels().iter()
     }
 
     /// Iterate through this project's [world levels](RawLevelAccessor#root-vs-world-levels).
     ///
     /// Note: all levels are considered [raw](crate::assets::LdtkProject#raw-vs-loaded-levels).
-    fn iter_world_levels(&self) -> IterWorldLevels {
+    fn iter_world_levels(&self) -> IterWorldLevels<'_> {
         self.worlds().iter().flat_map(|world| world.levels.iter())
     }
 
@@ -75,7 +75,7 @@ pub trait RawLevelAccessor {
     /// This first iterates through [root levels, then world levels](RawLevelAccessor#root-vs-world-levels).
     ///
     /// Note: all levels are considered [raw](crate::assets::LdtkProject#raw-vs-loaded-levels).
-    fn iter_raw_levels(&self) -> IterLevels {
+    fn iter_raw_levels(&self) -> IterLevels<'_> {
         self.iter_root_levels().chain(self.iter_world_levels())
     }
 
@@ -83,7 +83,7 @@ pub trait RawLevelAccessor {
     /// enumerated with their [`LevelIndices`].
     ///
     /// Note: all levels are considered [raw](crate::assets::LdtkProject#raw-vs-loaded-levels).
-    fn iter_root_levels_with_indices(&self) -> IterRootLevelsWithIndices {
+    fn iter_root_levels_with_indices(&self) -> IterRootLevelsWithIndices<'_> {
         self.root_levels()
             .iter()
             .enumerate()
@@ -94,7 +94,7 @@ pub trait RawLevelAccessor {
     /// enumerated with their [`LevelIndices`].
     ///
     /// Note: all levels are considered [raw](crate::assets::LdtkProject#raw-vs-loaded-levels).
-    fn iter_world_levels_with_indices(&self) -> IterWorldLevelsWithIndices {
+    fn iter_world_levels_with_indices(&self) -> IterWorldLevelsWithIndices<'_> {
         self.worlds()
             .iter()
             .enumerate()
@@ -112,7 +112,7 @@ pub trait RawLevelAccessor {
     /// This first iterates through [root levels, then world levels](RawLevelAccessor#root-vs-world-levels).
     ///
     /// Note: all levels are considered [raw](crate::assets::LdtkProject#raw-vs-loaded-levels).
-    fn iter_raw_levels_with_indices(&self) -> IterLevelsWithIndices {
+    fn iter_raw_levels_with_indices(&self) -> IterLevelsWithIndices<'_> {
         self.iter_root_levels_with_indices()
             .chain(self.iter_world_levels_with_indices())
     }
